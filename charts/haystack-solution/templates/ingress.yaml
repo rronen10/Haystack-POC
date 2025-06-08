@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: haystack-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: haystack.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: haystack-api
+                port:
+                  number: 8000
+          - path: /ui
+            pathType: Prefix
+            backend:
+              service:
+                name: haystack-ui
+                port:
+                  number: 8501
