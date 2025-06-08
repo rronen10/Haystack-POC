@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: haystack-solution-ui
+  name: haystack-streamlit-ui
 spec:
   type: LoadBalancer
   selector:
-    app: haystack-ui
+    app: haystack-streamlit-ui
   ports:
     - protocol: TCP
       port: 80
-      targetPort: {{ .Values.ui.port }}
+      targetPort: 8501

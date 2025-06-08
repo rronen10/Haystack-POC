@@ -1,3 +1,4 @@
+---
 haystack:
   image: deepset/haystack:cpu-v1.26.4
   resources:
@@ -9,12 +10,19 @@ haystack:
       cpu: 50m
 
 ui:
-  image: deepset/haystack-ui:1.20.0
+  image: streamlit/streamlit:latest
+  enabled: true
   port: 8501
+  service:
+    type: LoadBalancer
+    port: 80
 
 uploader:
-  image: ghcr.io/your-org/resume-uploader:1.0.0
-  port: 3000
+  image: downloads.unstructured.io/unstructured-io/unstructured:latest
+  port: 3001
+  enabled: true
+  command: ["python3", "-m", "unstructured.ingest.interfaces.api.main"]
+  args: ["--destination", "qdrant", "--api-url", "http://haystack-api:8000/documents"]
 
 qdrant:
   image: qdrant/qdrant:v1.7.3

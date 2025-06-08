@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: streamlit-ui-code
+  labels:
+    app: haystack-streamlit-ui
+data:
+  ui_app.py: |
+    import streamlit as st
+    import requests
+
+    st.title("Resume Search")
+    query = st.text_input("Enter job description:")
+    if query:
+        try:
+            res = requests.post("http://haystack-api:8000/query", json={"query": query})
+            st.json(res.json())
+        except Exception as e:
+            st.error(f"Error: {e}")
