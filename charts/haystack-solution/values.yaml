@@ -1,6 +1,7 @@
 ---
 haystack:
   image: deepset/haystack:cpu-v1.26.4
+  replicas: 1
   resources:
     requests:
       memory: 64Mi
@@ -11,6 +12,7 @@ haystack:
 
 ui:
   image: aminehy/docker-streamlit-app:latest
+  replicas: 1
   enabled: true
   port: 8501
   service:
@@ -19,6 +21,7 @@ ui:
 
 uploader:
   image: downloads.unstructured.io/unstructured-io/unstructured:latest
+  replicas: 1
   port: 3001
   enabled: true
   command: ["python3", "-m", "unstructured.ingest.interfaces.api.main"]
@@ -26,6 +29,7 @@ uploader:
 
 qdrant:
   image: qdrant/qdrant:v1.7.3
+  replicas: 1
   resources:
     requests:
       memory: 128Mi

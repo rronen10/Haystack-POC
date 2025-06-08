@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: haystack-pipeline-config
+data:
+  pipeline_config.yaml: |
+    version: "1.22"
+    components:
+      - name: DocumentStore
+        type: QdrantDocumentStore
+        params:
+          host: qdrant
+          port: 6333
+          embedding_dim: 768
+          similarity: cos_sim
+      - name: Retriever
+        type: EmbeddingRetriever
+        params:
+          document_store: DocumentStore
+          embedding_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+          model_format: sentence_transformers
+      - name: PromptNode
+        type: PromptNode
+        params:
+          model_name_or_path: google/flan-t5-base
+          default_prompt_template: "question-answering"
+          max_length: 256
+          use_gpu: false
+      - name: PromptRetriever
+        type: PromptRetriever
+        params:
+          retriever: Retriever
+          prompt_node: PromptNode
+    pipelines:
+      - name: query
+        nodes:
+          - name: PromptRetriever
+            inputs: [Query]
