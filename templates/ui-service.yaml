@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: haystack-solution-ui
+spec:
+  type: LoadBalancer
+  selector:
+    app: haystack-ui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{ .Values.ui.port }}

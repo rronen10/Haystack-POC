@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resume-uploader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resume-uploader
+  template:
+    metadata:
+      labels:
+        app: resume-uploader
+    spec:
+      containers:
+        - name: uploader
+          image: {{ .Values.uploader.image }}
+          ports:
+            - containerPort: {{ .Values.uploader.port }}

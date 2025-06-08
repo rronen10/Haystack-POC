@@ -1,0 +1,19 @@
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haystack-solution-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: haystack-ui
+  template:
+    metadata:
+      labels:
+        app: haystack-ui
+    spec:
+      containers:
+        - name: ui
+          image: {{ .Values.ui.image }}
+          ports:
+            - containerPort: {{ .Values.ui.port }}

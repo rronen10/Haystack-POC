@@ -1,0 +1,30 @@
+haystack:
+  image: deepset/haystack:latest
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 250m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+qdrant:
+  image: qdrant/qdrant:latest
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+      cpu: 250m
+
+ui:
+  image: streamlit/streamlit:latest
+  port: 8501
+
+uploader:
+  image: myorg/resume-uploader:latest
+  port: 3000
+
+service:
+  type: ClusterIP

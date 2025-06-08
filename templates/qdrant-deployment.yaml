@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qdrant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qdrant
+  template:
+    metadata:
+      labels:
+        app: qdrant
+    spec:
+      containers:
+        - name: qdrant
+          image: {{ .Values.qdrant.image }}
+          resources:
+            requests:
+              memory: {{ .Values.qdrant.resources.requests.memory }}
+              cpu: {{ .Values.qdrant.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.qdrant.resources.limits.memory }}
+              cpu: {{ .Values.qdrant.resources.limits.cpu }}
+          ports:
+            - containerPort: 6333
