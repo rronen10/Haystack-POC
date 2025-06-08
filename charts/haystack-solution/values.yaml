@@ -1,5 +1,5 @@
 haystack:
-  image: deepset/haystack-api:1.20.0
+  image: deepset/haystack:cpu-v1.26.4
   resources:
     requests:
       memory: 64Mi
