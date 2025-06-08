@@ -10,7 +10,7 @@ haystack:
       cpu: 50m
 
 ui:
-  image: streamlit/streamlit:latest
+  image: aminehy/docker-streamlit-app:latest
   enabled: true
   port: 8501
   service:
