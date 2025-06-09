@@ -22,4 +22,6 @@ qdrant:
 
 ingress:
   enabled: true
-  host: haystack.local
+  host: cv-search.blox-pages.com
+  path: /
+  uiPath: /ui
