@@ -15,12 +15,18 @@ spec:
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
-          ports:
-            - containerPort: 8000
+          args: {{ .Values.haystack.args }}
           resources:
-            limits:
-              memory: {{ .Values.haystack.resources.limits.memory }}
-              cpu: {{ .Values.haystack.resources.limits.cpu }}
             requests:
               memory: {{ .Values.haystack.resources.requests.memory }}
               cpu: {{ .Values.haystack.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.haystack.resources.limits.memory }}
+              cpu: {{ .Values.haystack.resources.limits.cpu }}
+          volumeMounts:
+            - name: pipeline-config
+              mountPath: /app
+      volumes:
+        - name: pipeline-config
+          configMap:
+            name: pipeline-config

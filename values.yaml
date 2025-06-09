@@ -3,25 +3,26 @@ haystack:
   replicas: 1
   resources:
     requests:
-      cpu: 50m
-      memory: 128Mi
-    limits:
-      cpu: 100m
       memory: 256Mi
+      cpu: 250m
+    limits:
+      memory: 512Mi
+      cpu: 500m
+  pipelineConfigPath: /app/pipeline_config.yaml
+  args: ["haystack", "api", "--config", "/app/pipeline_config.yaml"]
 
 qdrant:
   image: qdrant/qdrant:v1.7.3
   replicas: 1
   resources:
     requests:
-      cpu: 50m
       memory: 128Mi
+      cpu: 50m
     limits:
-      cpu: 100m
       memory: 256Mi
+      cpu: 100m
 
 ingress:
   enabled: true
   host: cv-search.blox-pages.com
   path: /
-  uiPath: /ui

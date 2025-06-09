@@ -1,0 +1,20 @@
+version: '1.0'
+components:
+  - name: Retriever
+    type: EmbeddingRetriever
+    params:
+      embedding_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+      model_format: sentence_transformers
+      use_gpu: false
+  - name: DocumentStore
+    type: QdrantDocumentStore
+    params:
+      host: qdrant
+      port: 6333
+      index: haystack
+
+pipelines:
+  - name: query_pipeline
+    nodes:
+      - name: Retriever
+        inputs: [Query]

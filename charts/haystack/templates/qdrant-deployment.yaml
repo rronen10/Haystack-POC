@@ -15,12 +15,10 @@ spec:
       containers:
         - name: qdrant
           image: {{ .Values.qdrant.image }}
-          ports:
-            - containerPort: 6333
           resources:
-            limits:
-              memory: {{ .Values.qdrant.resources.limits.memory }}
-              cpu: {{ .Values.qdrant.resources.limits.cpu }}
             requests:
               memory: {{ .Values.qdrant.resources.requests.memory }}
               cpu: {{ .Values.qdrant.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.qdrant.resources.limits.memory }}
+              cpu: {{ .Values.qdrant.resources.limits.cpu }}
