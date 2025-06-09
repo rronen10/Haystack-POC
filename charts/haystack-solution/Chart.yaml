@@ -1,5 +1,6 @@
 apiVersion: v2
-name: haystack-solution
-description: A Helm chart for Haystack POC with stable images
+name: haystack-minimal
+description: Minimal Helm chart with Qdrant + Haystack
+type: application
 version: 0.1.0
-appVersion: "1.20.0"
+appVersion: "1.0"

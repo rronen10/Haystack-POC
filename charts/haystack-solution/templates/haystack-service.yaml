@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: haystack-api
 spec:
-  type: {{ .Values.service.type }}
   selector:
     app: haystack-api
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
+  type: ClusterIP

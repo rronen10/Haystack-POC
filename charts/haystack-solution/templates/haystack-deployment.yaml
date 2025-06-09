@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: haystack-api
 spec:
-  replicas: 1
+  replicas: {{ .Values.haystack.replicas }}
   selector:
     matchLabels:
       app: haystack-api
@@ -15,12 +15,12 @@ spec:
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
+          ports:
+            - containerPort: 8000
           resources:
-            requests:
-              memory: {{ .Values.haystack.resources.requests.memory }}
-              cpu: {{ .Values.haystack.resources.requests.cpu }}
             limits:
               memory: {{ .Values.haystack.resources.limits.memory }}
               cpu: {{ .Values.haystack.resources.limits.cpu }}
-          ports:
-            - containerPort: 8000
+            requests:
+              memory: {{ .Values.haystack.resources.requests.memory }}
+              cpu: {{ .Values.haystack.resources.requests.cpu }}

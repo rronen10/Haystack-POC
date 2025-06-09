@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -6,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: haystack.local
+    - host: {{ .Values.ingress.host }}
       http:
         paths:
           - path: /
@@ -16,10 +17,4 @@ spec:
                 name: haystack-api
                 port:
                   number: 8000
-          - path: /ui
-            pathType: Prefix
-            backend:
-              service:
-                name: haystack-ui
-                port:
-                  number: 8501
+{{- end }}

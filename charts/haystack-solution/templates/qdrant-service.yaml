@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: qdrant
 spec:
-  type: {{ .Values.service.type }}
   selector:
     app: qdrant
   ports:
     - protocol: TCP
       port: 6333
       targetPort: 6333
+  type: ClusterIP

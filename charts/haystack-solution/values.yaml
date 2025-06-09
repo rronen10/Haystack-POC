@@ -1,48 +1,25 @@
----
 haystack:
   image: deepset/haystack:cpu-v1.26.4
   replicas: 1
   resources:
     requests:
-      memory: 64Mi
-      cpu: 25m
-    limits:
-      memory: 128Mi
       cpu: 50m
-
-ui:
-  image: aminehy/docker-streamlit-app:latest
-  replicas: 1
-  enabled: true
-  port: 8501
-  service:
-    type: LoadBalancer
-    port: 80
-
-uploader:
-  image: downloads.unstructured.io/unstructured-io/unstructured:latest
-  replicas: 1
-  enabled: true
-  port: 3001
-  command: ["python3", "-m", "unstructured.ingest.interfaces.api.main"]
-  args: ["--destination", "qdrant", "--api-url", "http://haystack-api:8000/documents"]
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
 
 qdrant:
   image: qdrant/qdrant:v1.7.3
   replicas: 1
   resources:
     requests:
-      memory: 128Mi
       cpu: 50m
+      memory: 128Mi
     limits:
-      memory: 256Mi
       cpu: 100m
-
-service:
-  type: ClusterIP
+      memory: 256Mi
 
 ingress:
   enabled: true
   host: haystack.local
-  path: /
-  uiPath: /ui
