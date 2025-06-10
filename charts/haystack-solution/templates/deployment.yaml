@@ -12,15 +12,23 @@ spec:
       labels:
         app: haystack-api
     spec:
+      ########################################
+      # 1) initContainer – מתקין NumPy 1.x   #
+      ########################################
       initContainers:
         - name: numpy-fix
           image: {{ .Values.haystack.image }}
           securityContext:
-            runAsUser: 0
-          command: ["sh", "-c"]
+            runAsUser: 0          # root – כדי לכתוב ל-/opt/venv
+          command: ["/bin/sh", "-c"]
+          # NB: משתמשים ב-pip3 כי python/python-m-pip אינם קיימים בתמונה ↓
           args:
-            - python -m pip install --upgrade pip --no-cache-dir && \
-              python -m pip install --no-user 'numpy<2.0' faiss-cpu
+            - |
+              set -e
+              pip3 install --no-cache-dir --no-user 'numpy<2.0' faiss-cpu
+      ########################################
+      # 2) קונטיינר Haystack הראשי           #
+      ########################################
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
