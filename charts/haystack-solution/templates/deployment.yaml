@@ -12,6 +12,12 @@ spec:
       labels:
         app: haystack-api
     spec:
+      initContainers:
+        - name: numpy-fix
+          image: {{ .Values.haystack.image }}
+          command: ["sh", "-c"]
+          args:
+            - pip install "numpy<2.0" && pip install faiss-cpu
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
