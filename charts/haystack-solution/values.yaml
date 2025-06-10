@@ -1,18 +1,17 @@
 haystack:
-  image: deepset/haystack:cpu-v1.26.4
+  image: deepset/haystack:cpu-v2.14.2
   replicas: 1
   resources:
     requests:
       memory: 256Mi
-      cpu: 250m
+      cpu: 100m
     limits:
       memory: 512Mi
-      cpu: 500m
+      cpu: 250m
   args:
-    - "api"
-    - "--config"
-    - "/app/pipeline_config.yaml"
-
+  - api
+  - --config
+  - /app/pipeline_config.yaml
 qdrant:
   image: qdrant/qdrant:v1.7.3
   replicas: 1
@@ -23,7 +22,6 @@ qdrant:
     limits:
       memory: 256Mi
       cpu: 100m
-
 ingress:
   enabled: true
   host: cv-search.blox-pages.com

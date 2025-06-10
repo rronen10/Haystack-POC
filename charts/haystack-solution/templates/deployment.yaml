@@ -12,40 +12,17 @@ spec:
       labels:
         app: haystack-api
     spec:
-      ########################################
-      # 1) initContainer – מתקין NumPy 1.x   #
-      ########################################
-      initContainers:
-        - name: numpy-fix
-          image: {{ .Values.haystack.image }}
-          securityContext:
-            runAsUser: 0          # root – כדי לכתוב ל-/opt/venv
-          command: ["/bin/sh", "-c"]
-          # NB: משתמשים ב-pip3 כי python/python-m-pip אינם קיימים בתמונה ↓
-          args:
-            - |
-              set -e
-              pip3 install --no-cache-dir --no-user 'numpy<2.0' faiss-cpu
-      ########################################
-      # 2) קונטיינר Haystack הראשי           #
-      ########################################
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
-          securityContext:
-            runAsUser: 0
-          command: ["haystack"]
-          args:
-            - "api"
-            - "--config"
-            - "/app/pipeline_config.yaml"
+          args: {{ .Values.haystack.args }}
           resources:
             requests:
               memory: {{ .Values.haystack.resources.requests.memory }}
-              cpu:    {{ .Values.haystack.resources.requests.cpu }}
+              cpu: {{ .Values.haystack.resources.requests.cpu }}
             limits:
               memory: {{ .Values.haystack.resources.limits.memory }}
-              cpu:    {{ .Values.haystack.resources.limits.cpu }}
+              cpu: {{ .Values.haystack.resources.limits.cpu }}
           volumeMounts:
             - name: pipeline-config
               mountPath: /app
