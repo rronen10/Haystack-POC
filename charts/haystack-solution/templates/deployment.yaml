@@ -20,7 +20,7 @@ spec:
           command: ["sh", "-c"]
           args:
             - pip install --upgrade pip --no-cache-dir && \
-              pip install --no-user numpy<2.0 faiss-cpu
+              pip install --no-user 'numpy<2.0' faiss-cpu
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
