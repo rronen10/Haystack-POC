@@ -8,7 +8,10 @@ haystack:
     limits:
       memory: 512Mi
       cpu: 500m
-  args: ["haystack", "api", "--config", "/app/pipeline_config.yaml"]
+  args:
+    - "api"
+    - "--config"
+    - "/app/pipeline_config.yaml"
 
 qdrant:
   image: qdrant/qdrant:v1.7.3
