@@ -14,13 +14,18 @@ spec:
     spec:
       initContainers:
         - name: numpy-fix
-          image: {{ .Values.haystack.image }}
-          command: ["sh", "-c"]
-          args:
-            - pip install "numpy<2.0" && pip install faiss-cpu
+        image: {{ .Values.haystack.image }}
+        securityContext:
+          runAsUser: 0
+        command: ["sh", "-c"]
+        args:
+          - pip install --upgrade pip && \
+            pip install "numpy<2.0" faiss-cpu
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
+          securityContext:
+            runAsUser: 0
           command: ["haystack"]
           args:
             - "api"
