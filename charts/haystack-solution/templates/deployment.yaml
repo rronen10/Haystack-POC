@@ -15,6 +15,7 @@ spec:
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
+          command: ["haystack"]
           args:
             - "api"
             - "--config"
