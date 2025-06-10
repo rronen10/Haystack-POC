@@ -15,7 +15,10 @@ spec:
       containers:
         - name: haystack
           image: {{ .Values.haystack.image }}
-          args: {{ .Values.haystack.args }}
+          args:
+            - "api"
+            - "--config"
+            - "/app/pipeline_config.yaml"
           resources:
             requests:
               memory: {{ .Values.haystack.resources.requests.memory }}
